@@ -1,5 +1,21 @@
 #include <iostream>
+#include <chrono>
+
+#include "engine/Engine.h"
+#include "engine/Action.h"
 
 int main() {
-    std::cout << "This is gonna be good" << std::endl;
+    game::Engine engine;
+
+    auto time_then = std::chrono::high_resolution_clock::now();
+    while (true) {
+        auto time_now = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> delta_t = time_now - time_then;
+        if (delta_t.count() >= 1.0) {
+            time_then = time_now;
+
+            game::Action end_turn(game::EventType::TurnEnd);
+            engine.handle_action(end_turn);
+        }
+    }
 }

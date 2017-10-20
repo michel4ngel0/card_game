@@ -13,16 +13,18 @@ class Engine;
 
 class Action {
 public:
-    Action(EventType type);
-    Action(EventType type, std::function<void(Engine&)> script);
+    Action(std::string, EventType type);
+    Action(std::string, EventType type, ActionScript script);
     void execute(Engine& engine);
-    EventType get_type() const;
+    bool is_type(EventType type) const;
+    bool is_resolved() const;
 
+    std::string name;
     SimpleMap<ActionAttribute, u32> attributes;
 
 private:
     EventType type;
-    std::function<void(Engine&)> script;
+    ActionScript script;
 };
 
 }

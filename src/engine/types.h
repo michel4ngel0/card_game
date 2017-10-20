@@ -1,6 +1,14 @@
 #pragma once
 
+#include <functional>
+
+#include <common/types.h>
+#include <common/SimpleMap.h>
+
 namespace game {
+
+class Engine;
+class Action;
 
 enum class EventType {
     None,
@@ -9,16 +17,17 @@ enum class EventType {
     GameStart,
 
     TurnStart,
+    DrawCard,
     TurnEnd,
-};
-
-enum class TriggerWhen {
-    Before,
-    After,
+    PassInitiative,
 };
 
 enum class ActionAttribute {
+    Resolved,
+
     Countered,
+
+    DeckEmpty,
 };
 
 enum class CardType {
@@ -30,5 +39,8 @@ enum class CardAttribute {
     Power,
     Toughness,
 };
+
+using ActionScript = std::function<void(Engine&, SimpleMap<ActionAttribute, u32>&)>;
+using TriggerScript = std::function<std::optional<Action>(const Engine&, Action&)>;
 
 }

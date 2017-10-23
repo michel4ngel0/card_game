@@ -11,12 +11,13 @@ Action::Action(std::string n, EventType t, ActionScript s)
 void Action::execute(Engine& engine) {
     if (bool(script))
         script(engine, attributes);
+    attributes.set(ActionAttribute::Resolved, 1);
 }
 
-bool Action::is_type(EventType t) const {
+bool Action::is_type(EventType desired_type) const {
     if (type == EventType::None)
-        return (type == EventType::None);
-    return (t == type || t == EventType::Any || type == EventType::Any);
+        return (desired_type == EventType::None);
+    return (desired_type == type || desired_type == EventType::Any || type == EventType::Any);
 }
 
 bool Action::is_resolved() const {

@@ -1,8 +1,11 @@
-std::optional<Action> AfterTurnEndPassInitiative(const Engine& engine, Action& action) {
+void AfterTurnEndStartNextTurn(const Engine& engine, Action& action, std::vector<Action>& queue) {
     if (!action.is_type(EventType::TurnEnd) || !action.is_resolved())
-        return std::optional<Action>();
+        return;
 
     ActionScript script = ScriptLoader::get_instance().action("PassInitiative");
     Action pass_initiative("Pass initiative to the next player", EventType::PassInitiative, script);
-    return std::optional<Action>(pass_initiative);
+    queue.push_back(pass_initiative);
+
+    Action turn_start("Start the next turn", EventType::TurnStart);
+    queue.push_back(turn_start);
 }

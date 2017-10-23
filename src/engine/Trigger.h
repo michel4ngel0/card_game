@@ -13,7 +13,7 @@ class Engine;
 class Trigger {
 public:
     Trigger(TriggerScript generate_action);
-    std::optional<Action> check(const Engine& engine, Action& action) const;
+    void check(const Engine& engine, Action& action, std::vector<Action>& queue) const;
 
 private:
     TriggerScript generate_action;

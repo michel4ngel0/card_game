@@ -1,7 +1,7 @@
-std::optional<Action> AfterGameStartTurnStart(const Engine& engine, Action& action) {
+void AfterGameStartTurnStart(const Engine& engine, Action& action, std::vector<Action>& queue) {
     if (!action.is_type(EventType::GameStart) || !action.is_resolved())
-        return std::optional<Action>();
+        return;
 
     Action turn_start("Start the very first turn", EventType::TurnStart);
-    return std::optional<Action>(turn_start);
+    queue.push_back(turn_start);
 }

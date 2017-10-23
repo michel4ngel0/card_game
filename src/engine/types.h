@@ -20,6 +20,8 @@ enum class EventType {
     DrawCard,
     TurnEnd,
     PassInitiative,
+
+    Damage,
 };
 
 enum class ActionAttribute {
@@ -28,6 +30,11 @@ enum class ActionAttribute {
     Countered,
 
     DeckEmpty,
+
+    TargetType,
+    TargetId,
+
+    Amount
 };
 
 enum class CardType {
@@ -41,6 +48,6 @@ enum class CardAttribute {
 };
 
 using ActionScript = std::function<void(Engine&, SimpleMap<ActionAttribute, u32>&)>;
-using TriggerScript = std::function<std::optional<Action>(const Engine&, Action&)>;
+using TriggerScript = std::function<void(const Engine&, Action&, std::vector<Action>&)>;
 
 }

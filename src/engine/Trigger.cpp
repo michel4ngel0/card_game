@@ -8,8 +8,8 @@ Trigger::Trigger(TriggerScript ga) :
     generate_action(ga) {
 }
 
-std::optional<Action> Trigger::check(const Engine& engine, Action& a) const {
-    return generate_action(engine, a);
+void Trigger::check(const Engine& engine, Action& a, std::vector<Action>& q) const {
+    return generate_action(engine, a, q);
 }
 
 }

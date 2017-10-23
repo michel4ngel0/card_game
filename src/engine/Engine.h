@@ -4,15 +4,16 @@
 #include <map>
 
 #include "Card.h"
+#include "Minion.h"
 
 #include "types.h"
-#include <common/types.h>
 
 namespace game {
 
 class Action;
 class Trigger;
 class Loader;
+class Permanent;
 
 class Engine {
 public:
@@ -25,13 +26,19 @@ private:
 
 public:
     struct Player {
+        i32 health;
+        i32 fatigue_counter;
         std::vector<u32> deck;
         std::vector<u32> hand;
+        std::vector<u32> board;
     };
     std::vector<Player> players;
-    std::map<u32, Card> cards;
-    std::vector<Trigger> triggers;
     u32 current_player;
+    
+    std::map<u32, Minion> minions;
+    std::map<u32, Card> cards;
+    
+    std::vector<Trigger> triggers;
 };
 
 }
